@@ -12,9 +12,8 @@
 Clone this repository. And execute next in your CLI in cloned folder:
 
 ```
-$> git clone https://github.com/skrivopishin/ReceptionUI.git
 $> cd ReceptionUI
 $> npm install
 $> bower install
-
+$> grunt
 ```
