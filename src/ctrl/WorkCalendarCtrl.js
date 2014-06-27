@@ -6,43 +6,35 @@ app.controller('WorkCalendarController', function ($scope, $http, $q) {
         return hoursText + minutes + "m"
     }
 
-    var today = new Date();
-    var weekstart = today.getDate() - today.getDay() +1;
-    var weekend = weekstart + 6;
-    var monday = new Date(today.setDate(weekstart));
-    var sunday = new Date(today.setDate(weekend));
-    var dateFrom = (monday.getMonth()+1)+'/'+monday.getDate()+'/'+monday.getFullYear();
-    var dateTo = (sunday.getMonth()+1)+'/'+sunday.getDate()+'/'+sunday.getFullYear();
-    $scope.loadingPromise = $http.get('http://localhost/api/get/events?datefrom='+dateFrom+'&dateto='+dateTo);
-    $scope.loadingPromise.then(function (response) {
-        var eventsData = response.data;
-        _.forEach(eventsData.users, function (user) {
-            user.formattedWorkTime = [];
-            _.forEach(user.workInMinutes, function (minutes) {
-                user.formattedWorkTime.push(parseMinutes(minutes));
-            })
+    $scope.reload = function (dateFrom, dateTo) {
+        var _dateFrom = (dateFrom.getMonth()+1)+'/'+dateFrom.getDate()+'/'+dateFrom.getFullYear();
+        var _dateTo = (dateTo.getMonth()+1)+'/'+dateTo.getDate()+'/'+dateTo.getFullYear();
+        $scope.loadingPromise = $http.get('http://localhost/api/get/events?datefrom='+_dateFrom+'&dateto='+_dateTo);
+        $scope.loadingPromise.then(function (response) {
+            var eventsData = response.data;
+            _.forEach(eventsData.users, function (user) {
+                user.formattedWorkTime = [];
+                _.forEach(user.workInMinutes, function (minutes) {
+                    user.formattedWorkTime.push(parseMinutes(minutes));
+                })
+            });
+            $scope.events = eventsData;
+        }, function (reason) {
+            $scope.error = reason;
         });
-        $scope.events = eventsData;
-    }, function (reason) {
-        $scope.error = reason;
-    });
+    };
 
     $scope.loadingPromise = $http.get('http://localhost/api/get/alldates').then(function (response) {
         var allDates = response.data;
         console.log(response.data);
-        $scope.minDate = new Date(allDates[0]);
-        $scope.maxDate = new Date(allDates[allDates.length]);
-        $scope.dtFrom.setStartDate($scope.minDate);
+        $scope.dtFrom = new Date(allDates[0]);
+        $scope.dtTo = new Date(allDates[6]);
+        $scope.dtFromMin = new Date(allDates[0]);
+        $scope.dtToMin = new Date(allDates[1]);
+        $scope.dtFromMax = new Date(allDates[allDates.length-1]);
+        $scope.dtToMax = new Date(allDates[allDates.length]);
+        $scope.reload($scope.dtFrom, $scope.dtTo);
     });
-
-    $scope.reload = function (dateFrom, dateTo) {
-        $scope.loadingPromise = $http.get('http://localhost/api/get/events?datefrom='+dateFrom+'&dateto='+dateTo);
-    };
-
-    $scope.toggleMin = function() {
-        $scope.minDate = $scope.minDate ? null : new Date();
-    };
-    $scope.toggleMin();
 
     $scope.openFrom = function($event) {
         $event.preventDefault();
@@ -56,10 +48,18 @@ app.controller('WorkCalendarController', function ($scope, $http, $q) {
         $scope.openedTo = true;
     };
 
+    $scope.changedTo = function() {
+        var dt = $scope.dtTo;
+      $scope.dtFromMax = new Date((dt.getMonth() + 1) + '/' + (dt.getDate() - 1) + '/' + dt.getFullYear());
+    };
 
+    $scope.changedFrom = function() {
+        var dt = $scope.dtFrom;
+        $scope.dtToMin = new Date((dt.getMonth() + 1) + '/' + (dt.getDate() + 1) + '/' + dt.getFullYear());
+    };
 
     $scope.initDate = new Date();
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[2];
+    $scope.format = $scope.formats[3];
 
 });

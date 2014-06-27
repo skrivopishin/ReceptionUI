@@ -4,7 +4,7 @@
             <p class="input-group">
                 <span class="input-group-addon">Date from:</span>
                 <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dtFrom" is-open="openedFrom"
-                       datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                       datepicker-options="dateOptionsFrom" ng-required="true" close-text="Close" min-date="dtFromMin" max-date="dtFromMax" ng-change="changedFrom()"/>
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
@@ -14,13 +14,13 @@
             <p class="input-group">
                 <span class="input-group-addon">Date to:</span>
                 <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dtTo" is-open="openedTo"
-                       datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                       datepicker-options="dateOptionsTo" ng-required="true" close-text="Close" min-date="dtToMin" max-date="dtToMax" ng-change="changedTo()" />
               <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="openTo($event)"><i class="glyphicon glyphicon-calendar"></i></button>
               </span>
             </p>
         </div>
-        <div class="col-md-3"><span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="reload(dtFrom.value, dtTo.value)">Reload</button></span></div>
+        <div class="col-md-3"><span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="reload(dtFrom, dtTo)">Reload</button></span></div>
     </div>
     <table class="table-striped">
         <thead>

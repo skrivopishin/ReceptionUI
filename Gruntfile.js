@@ -38,7 +38,11 @@ module.exports = function (grunt) {
             styles: {
                 src: [
                     'bower_components/bootstrap/dist/css/bootstrap.css',
-                    'bower_components/angular-busy/dist/angular-busy.css'
+                    'bower_components/angular-busy/dist/angular-busy.css',
+                    'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.eot',
+                    'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg',
+                    'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf',
+                    'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff'
                 ],
                 dest: 'dist/'
             }
