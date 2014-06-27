@@ -12,7 +12,6 @@
 Clone this repository. And execute next in your CLI in cloned folder:
 
 ```
-$> cd ReceptionUI
 $> npm install
 $> bower install
 $> grunt
