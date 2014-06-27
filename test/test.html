@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/grunt-contrib-qunit/test/libs/qunit.js"></script>
+
+    <script src="../bower_components/angular/angular.js" type="text/javascript"></script>
+    <script src="../bower_components/angular-ui-router/release/angular-ui-router.js" type="text/javascript"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js" type="text/javascript"></script>
+    <script src="../bower_components/angular-busy/dist/angular-busy.js" type="text/javascript"></script>
+    <script src="../bower_components/lodash/dist/lodash.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="../node_modules/grunt-contrib-qunit/test/libs/qunit.css"/>
+
+    <script src="../dist/ReceptionUI.js"></script>
+    <script>
+        var injector = angular.injector(['ng', 'Reception']);
+        var init = {
+            setup: function () {
+                this.$scope = injector.get('$rootScope').$new();
+            }
+        };
+
+        module('Basic Controller Test', init);
+
+        test('service injected correctly', function () {
+            ok(angular.isFunction(angular.module));
+        });
+
+    </script>
+</head>
+
+<body>
+<div id="qunit"></div>
+</body>
+
+</html>

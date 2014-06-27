@@ -1,0 +1,23 @@
+{
+  "name": "ReceptionUI",
+  "version": "0.0.1",
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "*",
+    "angular-busy": "~4.0.4",
+    "angular-ui-router": "~0.2.10",
+    "lodash": "~2.4.1",
+    "bootstrap": "~3.1.1",
+    "angular-ui-bootstrap": "~0.11.0",
+    "angular-bootstrap": "~0.11.0",
+    "angular-mocks": "~1.2.18"
+  }
+}

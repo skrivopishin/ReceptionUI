@@ -1,0 +1,35 @@
+<div cg-busy="{promise: loadingPromise, message:'Загрузка...'}" ng-controller="WorkCalendarController" class="panel-body">
+    <div class="row" style="width: 60%">
+        <div class="col-md-3">
+            <p class="input-group">
+                <span class="input-group-addon">Date from:</span>
+                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dtFrom" is-open="openedFrom"
+                       datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+        <div class="col-md-3">
+            <p class="input-group">
+                <span class="input-group-addon">Date to:</span>
+                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dtTo" is-open="openedTo"
+                       datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="openTo($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+            </p>
+        </div>
+        <div class="col-md-3"><span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="reload(dtFrom.value, dtTo.value)">Reload</button></span></div>
+    </div>
+    <table class="table-striped">
+        <thead>
+            <th style="width:200px">User</th>
+            <th ng-repeat="date in events.dates">{{date | date:'MM/dd/yyyy'}}</th>
+        </thead>
+        <tr ng-repeat="user in events.users">
+            <td>{{user.lastName}} {{user.firstName}}</td>
+            <td ng-repeat="workTime in user.formattedWorkTime track by $index">{{workTime}}</td>
+        </tr>
+    </table>
+</div>

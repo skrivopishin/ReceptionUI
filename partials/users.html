@@ -1,0 +1,29 @@
+<div ng-controller="UsersStatusController">
+    <table class="table-striped table-bordered" style="width:800px;" align="center">
+        <thead>
+        <tr>
+            <td>UserId</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Group</td>
+            <td>Last login</td>
+            <td>Status</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in users">
+            <td>{{user.UserID}}</td>
+            <td>{{user.FirstName}}</td>
+            <td>{{user.LastName}}</td>
+            <td>{{user.Name}}</td>
+            <td>{{user.LastLoginDate | date:'MM/dd/yyyy'}} {{user.LastLoginTime | date:' h:mma'}}</td>
+            <td>
+                <div ng-switch="user.LastLoginReaderID">
+                    <div ng-switch-when="1" class="alert-danger">{{user.currentLocation}}</div>
+                    <div ng-switch-when="1001" class="alert-success">{{user.currentLocation}}</div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
