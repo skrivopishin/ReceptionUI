@@ -9,6 +9,7 @@ module.exports = function (grunt) {
             '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
             '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>; */\r\n',
         // Task configuration.
+        clean: ["dist"],
         concat: {
             options: {
                 banner: '<%= banner %>',
@@ -98,6 +99,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     // Default task.
     grunt.registerTask('default', ['concat', 'qunit', 'uglify', 'copy']);
