@@ -22,14 +22,35 @@
         </div>
         <div class="col-md-3"><span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="reload(dtFrom, dtTo)">Reload</button></span></div>
     </div>
-    <table class="table-striped">
+    <table class="table-striped table table-bordered">
         <thead>
-            <th style="width:200px">User</th>
-            <th ng-repeat="date in events.dates">{{date | date:'MM/dd/yyyy'}}</th>
+            <th style="min-width: 200px">User</th>
+            <th style="min-width: 100px" ng-repeat="date in events.dates">{{date | date:'MM/dd/yyyy'}}</th>
         </thead>
-        <tr ng-repeat="user in events.users">
-            <td>{{user.lastName}} {{user.firstName}}</td>
-            <td ng-repeat="workTime in user.formattedWorkTime track by $index">{{workTime}}</td>
-        </tr>
+        <tbody>
+            <tr ng-repeat="user in events.users">
+                <td>{{user.lastName}} {{user.firstName}}</td>
+                <td ng-repeat="workTime in user.formattedWorkTime track by $index">{{workTime}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+        <td colspan="6">
+            <div class="pagination pull-right">
+                <ul class="pagination">
+                    <li ng-class="{disabled: currentPage == 0}">
+                        <a href ng-click="prevPage()">« Prev</a>
+                    </li>
+                    <li ng-repeat="n in range(pagedItems.length)"
+                        ng-class="{active: n == currentPage}"
+                        ng-click="setPage()">
+                        <a href ng-bind="n + 1">1</a>
+                    </li>
+                    <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
+                        <a href ng-click="nextPage()">Next »</a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        </tfoot>
     </table>
 </div>

@@ -2,8 +2,14 @@ app.controller('WorkCalendarController', function ($scope, $http, $q) {
     function parseMinutes(x) {
         var hours = Math.floor(x / 60);
         var minutes = x % 60;
-        var hoursText = hours === 0 ? "" : (hours + "h : ");
-        return hoursText + minutes + "m"
+        var hoursText = hours === 0 ? "" : (hours + ":");
+        return hoursText + minutes
+    }
+
+    Date.prototype.addDays = function(days) {
+        var dt = new Date(this);
+        dt.setDate(this.getDate() + days);
+        return dt;
     }
 
     $scope.reload = function (dateFrom, dateTo) {
@@ -40,26 +46,28 @@ app.controller('WorkCalendarController', function ($scope, $http, $q) {
         $event.preventDefault();
         $event.stopPropagation();
         $scope.openedFrom = true;
+        $scope.openedTo = false;
     };
 
     $scope.openTo = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
         $scope.openedTo = true;
+        $scope.openedFrom = false;
     };
 
     $scope.changedTo = function() {
         var dt = $scope.dtTo;
-      $scope.dtFromMax = new Date((dt.getMonth() + 1) + '/' + (dt.getDate() - 1) + '/' + dt.getFullYear());
+      $scope.dtFromMax = dt.addDays(-1);
     };
 
     $scope.changedFrom = function() {
         var dt = $scope.dtFrom;
-        $scope.dtToMin = new Date((dt.getMonth() + 1) + '/' + (dt.getDate() + 1) + '/' + dt.getFullYear());
+        $scope.dtToMin = dt.addDays(1);
     };
 
     $scope.initDate = new Date();
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-    $scope.format = $scope.formats[3];
+    $scope.format = $scope.formats[0];
 
 });
