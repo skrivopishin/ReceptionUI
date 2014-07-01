@@ -1,5 +1,6 @@
 <div ng-controller="UsersStatusController">
-    <table class="table-striped table-bordered" style="width:800px;" align="center">
+    <br />
+    <table class="table-striped table-bordered table" style="width:800px; border-bottom: 0px; border-right: 0px; border-left: 0px;" align="center">
         <thead>
         <tr>
             <td>UserId</td>
@@ -19,11 +20,29 @@
             <td>{{user.LastLoginDate | date:'MM/dd/yyyy'}} {{user.LastLoginTime | date:' h:mma'}}</td>
             <td>
                 <div ng-switch="user.LastLoginReaderID">
-                    <div ng-switch-when="1" class="alert-danger">{{user.currentLocation}}</div>
-                    <div ng-switch-when="1001" class="alert-success">{{user.currentLocation}}</div>
+                    <div ng-switch-when="1" style="color: #a94442;">{{user.currentLocation}}</div>
+                    <div ng-switch-when="1001" style="color: #3c763d">{{user.currentLocation}}</div>
                 </div>
             </td>
         </tr>
         </tbody>
+        <tfoot >
+        <td colspan="6" style="border: 0px">
+            <div class="pagination pull-right">
+                <ul class="pagination">
+                    <li ng-class="{disabled: pageNum == 1}">
+                        <a ui-sref="users({pageNum: pageNum - 1})">« Prev</a>
+                    </li>
+                    <li ng-repeat="n in pages"
+                        ng-class="{active: n == pageNum}">
+                        <a ui-sref="users({pageNum: n})" ng-bind="n"></a>
+                    </li>
+                    <li ng-class="{disabled: pageNum == pages.length}">
+                        <a ui-sref="users({pageNum: pageNum + 1})">Next »</a>
+                    </li>
+                </ul>
+            </div>
+        </td>
+        </tfoot>
     </table>
 </div>

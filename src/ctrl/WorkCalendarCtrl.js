@@ -1,4 +1,4 @@
-app.controller('WorkCalendarController', function ($scope, $http, $q) {
+app.controller('WorkCalendarController', function ($scope, $http) {
     function parseMinutes(x) {
         var hours = Math.floor(x / 60);
         var minutes = x % 60;
@@ -10,9 +10,9 @@ app.controller('WorkCalendarController', function ($scope, $http, $q) {
         var dt = new Date(this);
         dt.setDate(this.getDate() + days);
         return dt;
-    }
+    };
 
-    $scope.reload = function (dateFrom, dateTo) {
+    $scope.UsersData = function (dateFrom, dateTo){
         var _dateFrom = (dateFrom.getMonth()+1)+'/'+dateFrom.getDate()+'/'+dateFrom.getFullYear();
         var _dateTo = (dateTo.getMonth()+1)+'/'+dateTo.getDate()+'/'+dateTo.getFullYear();
         $scope.loadingPromise = $http.get('http://localhost/api/get/events?datefrom='+_dateFrom+'&dateto='+_dateTo);
@@ -30,9 +30,12 @@ app.controller('WorkCalendarController', function ($scope, $http, $q) {
         });
     };
 
+    $scope.reload = function (dateFrom, dateTo, pageNum, pageSize) {
+        $scope.UsersData(dateFrom, dateTo);
+    };
+
     $scope.loadingPromise = $http.get('http://localhost/api/get/alldates').then(function (response) {
         var allDates = response.data;
-        console.log(response.data);
         $scope.dtFrom = new Date(allDates[0]);
         $scope.dtTo = new Date(allDates[6]);
         $scope.dtFromMin = new Date(allDates[0]);
