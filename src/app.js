@@ -3,16 +3,13 @@
 app.config(function ($stateProvider, $urlRouterProvider) {
     //
     // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise("/users/1");
+    $urlRouterProvider.otherwise("/users");
     //
     // Now set up the states
     $stateProvider
         .state('users', {
-            url: "/users/:pageNum",
-            templateUrl: "partials/users.html",
-            controller: function($scope, $stateParams) {
-                $scope.pageNum = parseInt($stateParams.pageNum);
-            }
+            url: "/users",
+            templateUrl: "partials/users.html"
         })
         .state('workCalendar', {
             url: "/workCalendar",

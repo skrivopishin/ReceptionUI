@@ -22,35 +22,21 @@
         </div>
         <div class="col-md-3"><span class="input-group-btn"><button type="button" class="btn btn-default" ng-click="reload(dtFrom, dtTo)">Reload</button></span></div>
     </div>
-    <table class="table-striped table table-bordered">
+    <table class="table-striped table table-bordered" style="border-bottom: 0px; border-right: 0px; border-left: 0px;">
         <thead>
-            <th style="min-width: 200px">User</th>
+            <th style="min-width: 200px">
+                <a href="#/workCalendar" ng-click="orderByField='lastName'; reverseSort = !reverseSort">User</a>
+                <span ng-show="orderByField != 'lastName'" class="glyphicon glyphicon-sort"></span>
+                <span ng-show="!reverseSort && orderByField == 'lastName'" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                <span ng-show="reverseSort && orderByField == 'lastName'" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+            </th>
             <th style="min-width: 100px" ng-repeat="date in events.dates">{{date | date:'MM/dd/yyyy'}}</th>
         </thead>
         <tbody>
-            <tr ng-repeat="user in events.users">
+            <tr ng-repeat="user in events.users | orderBy:orderByField:reverseSort">
                 <td>{{user.lastName}} {{user.firstName}}</td>
                 <td ng-repeat="workTime in user.formattedWorkTime track by $index">{{workTime}}</td>
             </tr>
         </tbody>
-        <tfoot>
-        <td colspan="6">
-            <div class="pagination pull-right">
-                <ul class="pagination">
-                    <li ng-class="{disabled: currentPage == 0}">
-                        <a href ng-click="prevPage()">« Prev</a>
-                    </li>
-                    <li ng-repeat="n in range(pagedItems.length)"
-                        ng-class="{active: n == currentPage}"
-                        ng-click="setPage()">
-                        <a href ng-bind="n + 1">1</a>
-                    </li>
-                    <li ng-class="{disabled: currentPage == pagedItems.length - 1}">
-                        <a href ng-click="nextPage()">Next »</a>
-                    </li>
-                </ul>
-            </div>
-        </td>
-        </tfoot>
     </table>
 </div>

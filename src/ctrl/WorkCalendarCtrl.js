@@ -12,7 +12,7 @@ app.controller('WorkCalendarController', function ($scope, $http) {
         return dt;
     };
 
-    $scope.UsersData = function (dateFrom, dateTo){
+    $scope.reload = function (dateFrom, dateTo) {
         var _dateFrom = (dateFrom.getMonth()+1)+'/'+dateFrom.getDate()+'/'+dateFrom.getFullYear();
         var _dateTo = (dateTo.getMonth()+1)+'/'+dateTo.getDate()+'/'+dateTo.getFullYear();
         $scope.loadingPromise = $http.get('http://localhost/api/get/events?datefrom='+_dateFrom+'&dateto='+_dateTo);
@@ -28,10 +28,6 @@ app.controller('WorkCalendarController', function ($scope, $http) {
         }, function (reason) {
             $scope.error = reason;
         });
-    };
-
-    $scope.reload = function (dateFrom, dateTo, pageNum, pageSize) {
-        $scope.UsersData(dateFrom, dateTo);
     };
 
     $scope.loadingPromise = $http.get('http://localhost/api/get/alldates').then(function (response) {
@@ -72,5 +68,6 @@ app.controller('WorkCalendarController', function ($scope, $http) {
     $scope.initDate = new Date();
     $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
     $scope.format = $scope.formats[0];
-
+    $scope.orderByField = 'lastName';
+    $scope.reverseSort = false;
 });

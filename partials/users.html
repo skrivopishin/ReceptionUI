@@ -4,15 +4,40 @@
         <thead>
         <tr>
             <td>UserId</td>
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>Group</td>
-            <td>Last login</td>
-            <td>Status</td>
+            <td>
+                <a href="#/users" ng-click="orderByField='FirstName'; reverseSort = !reverseSort">First Name</a>
+                <span ng-show="orderByField != 'FirstName'" class="glyphicon glyphicon-sort"></span>
+                <span ng-show="!reverseSort && orderByField == 'FirstName'" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                <span ng-show="reverseSort && orderByField == 'FirstName'" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+            </td>
+            <td>
+                <a href="#/users" ng-click="orderByField='LastName'; reverseSort = !reverseSort">Last Name</a>
+                <span ng-show="orderByField != 'LastName'" class="glyphicon glyphicon-sort"></span>
+                <span ng-show="!reverseSort && orderByField == 'LastName'" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                <span ng-show="reverseSort && orderByField == 'LastName'" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+            </td>
+            <td>
+                <a href="#/users" ng-click="orderByField='Name'; reverseSort = !reverseSort">Group</a>
+                <span ng-show="orderByField != 'Name'" class="glyphicon glyphicon-sort"></span>
+                <span ng-show="!reverseSort && orderByField == 'Name'" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                <span ng-show="reverseSort && orderByField == 'Name'" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+            </td>
+            <td>
+                <a href="#/users" ng-click="orderByField='LastLoginDate'; reverseSort = !reverseSort">Last login</a>
+                <span ng-show="orderByField != 'LastLoginDate'" class="glyphicon glyphicon-sort"></span>
+                <span ng-show="!reverseSort && orderByField == 'LastLoginDate'" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                <span ng-show="reverseSort && orderByField == 'LastLoginDate'" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+            </td>
+            <td>
+                <a href="#/users" ng-click="orderByField='currentLocation'; reverseSort = !reverseSort">Status</a>
+                <span ng-show="orderByField != 'currentLocation'" class="glyphicon glyphicon-sort"></span>
+                <span ng-show="!reverseSort && orderByField == 'currentLocation'" class="glyphicon glyphicon-sort-by-alphabet"></span>
+                <span ng-show="reverseSort && orderByField == 'currentLocation'" class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+            </td>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="user in users">
+        <tr ng-repeat="user in users | orderBy:orderByField:reverseSort">
             <td>{{user.UserID}}</td>
             <td>{{user.FirstName}}</td>
             <td>{{user.LastName}}</td>
@@ -26,23 +51,5 @@
             </td>
         </tr>
         </tbody>
-        <tfoot >
-        <td colspan="6" style="border: 0px">
-            <div class="pagination pull-right">
-                <ul class="pagination">
-                    <li ng-class="{disabled: pageNum == 1}">
-                        <a ui-sref="users({pageNum: pageNum - 1})">« Prev</a>
-                    </li>
-                    <li ng-repeat="n in pages"
-                        ng-class="{active: n == pageNum}">
-                        <a ui-sref="users({pageNum: n})" ng-bind="n"></a>
-                    </li>
-                    <li ng-class="{disabled: pageNum == pages.length}">
-                        <a ui-sref="users({pageNum: pageNum + 1})">Next »</a>
-                    </li>
-                </ul>
-            </div>
-        </td>
-        </tfoot>
     </table>
 </div>

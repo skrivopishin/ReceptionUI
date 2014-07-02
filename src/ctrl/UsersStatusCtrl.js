@@ -1,4 +1,4 @@
-app.controller('UsersStatusController', function ($scope, $http) {
+app.controller('UsersStatusController', function ($scope, $http, $q) {
     var processUsersData = function (users) {
         for (var i = 0; i < users.length; i++) {
             var user = users[i];
@@ -7,19 +7,17 @@ app.controller('UsersStatusController', function ($scope, $http) {
     };
     $scope.pages = [];
     $scope.pageSize = 18;
-    $scope.loadData = function (pageNum, pageSize) {
+    $scope.loadData = function () {
         $http.get('http://localhost/api/get/users').success(function (data) {
             processUsersData(data);
-            for (var i = 1; i <= Math.ceil(data.length/pageSize); i++)
-            {
-                $scope.pages.push(i);
-            }
-            $scope.users = data.slice((pageNum-1)*pageSize,pageNum*pageSize);
+            $scope.users = data;
         }, function (reason) {
             $scope.error = reason;
         });
     };
 
-    $scope.loadData($scope.pageNum,$scope.pageSize);
+    $scope.loadData();
 
+    $scope.orderByField = 'LastName';
+    $scope.reverseSort = false;
 });
