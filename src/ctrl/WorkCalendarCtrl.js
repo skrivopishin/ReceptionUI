@@ -36,8 +36,8 @@ app.controller('WorkCalendarController', function ($scope, $http) {
         $scope.dtTo = new Date(allDates[6]);
         $scope.dtFromMin = new Date(allDates[0]);
         $scope.dtToMin = new Date(allDates[1]);
-        $scope.dtFromMax = new Date(allDates[allDates.length-1]);
-        $scope.dtToMax = new Date(allDates[allDates.length]);
+        $scope.dtFromMax = new Date(allDates[allDates.length-2]);
+        $scope.dtToMax = new Date(allDates[allDates.length-1]);
         $scope.reload($scope.dtFrom, $scope.dtTo);
     });
 
