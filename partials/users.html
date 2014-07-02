@@ -1,6 +1,7 @@
 <div ng-controller="UsersStatusController">
-    <br />
-    <table class="table-striped table-bordered table" style="width:800px; border-bottom: 0px; border-right: 0px; border-left: 0px;" align="center">
+    <br/>
+    <table class="table-striped table-bordered table"
+           style="width:800px; border-bottom: 0px; border-right: 0px; border-left: 0px;" align="center">
         <thead>
         <tr>
             <td>UserId</td>
@@ -26,23 +27,24 @@
             </td>
         </tr>
         </tbody>
-        <tfoot >
+        <tfoot>
         <td colspan="6" style="border: 0px">
-            <div class="pagination pull-right">
+            <div class="pull-right">
                 <ul class="pagination">
-                    <li ng-class="{disabled: pageNum == 1}">
-                        <a ui-sref="users({pageNum: pageNum - 1})">« Prev</a>
+                    <li ng-class="{disabled: pageNum < 2}">
+                        <a href ng-click="setPage(pageNum - 1)">« Prev</a>
                     </li>
-                    <li ng-repeat="n in pages"
-                        ng-class="{active: n == pageNum}">
-                        <a ui-sref="users({pageNum: n})" ng-bind="n"></a>
+                    <li ng-repeat="index in pages"
+                        ng-class="{active: index == pageNum}">
+                        <a href ng-click="setPage(index)">{{index}}</a>
                     </li>
-                    <li ng-class="{disabled: pageNum == pages.length}">
-                        <a ui-sref="users({pageNum: pageNum + 1})">Next »</a>
+                    <li ng-class="{disabled: pageNum >= pages.length}">
+                        <a href ng-click="setPage(pageNum + 1)">Next »</a>
                     </li>
                 </ul>
             </div>
         </td>
         </tfoot>
     </table>
+
 </div>

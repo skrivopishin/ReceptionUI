@@ -8,11 +8,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
     // Now set up the states
     $stateProvider
         .state('users', {
-            url: "/users/:pageNum",
-            templateUrl: "partials/users.html",
-            controller: function($scope, $stateParams) {
-                $scope.pageNum = parseInt($stateParams.pageNum);
-            }
+            url: "/users/:pageNum?pageSize&sort&direction",
+            templateUrl: "partials/users.html"
         })
         .state('workCalendar', {
             url: "/workCalendar",
