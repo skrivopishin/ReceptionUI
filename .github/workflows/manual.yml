@@ -13,5 +13,7 @@ jobs:
     steps:
     - name: NPM Install
       run: npm install
-    - name: Bower Install
+    - name: Install bower
+      run: npm install -g bower
+    - name: Install bower
       run: bower install
