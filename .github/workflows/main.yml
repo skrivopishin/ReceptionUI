@@ -34,3 +34,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Bower install
         run: bower install
+        
+      - name: Grunt
+        run: grunt
